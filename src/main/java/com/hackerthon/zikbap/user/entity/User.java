@@ -16,7 +16,7 @@ import lombok.*;
 @ToString
 @Table(name="users")
 @Entity
-public class UserEntity {
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
