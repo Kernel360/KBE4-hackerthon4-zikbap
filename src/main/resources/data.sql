@@ -1,6 +1,6 @@
 USE `zikbap`;
 
-SET GLOBAL local_infile = 1;
+SET GLOBAL local_infile = ON;
 
 INSERT INTO users (email, password, nickname, gender, age, role, created_at, modified_at, deleted_at, deleted)
 VALUES
@@ -111,7 +111,7 @@ INSERT INTO categories (category_id, name) VALUES (3, '일식');
 INSERT INTO categories (category_id, name) VALUES (4, '양식');
 
 SET @restaurant_id_counter = 0;
-LOAD DATA LOCAL INFILE '/src/main/resources/kindsikdang.csv'
+LOAD DATA LOCAL INFILE 'src/main/resources/kindsikdang.csv'
     INTO TABLE restaurants
     FIELDS TERMINATED BY ',' ENCLOSED BY '"'
     LINES TERMINATED BY '\r\n'
@@ -237,4 +237,5 @@ UPDATE restaurants r
             restaurant_id
     ) rev ON r.restaurant_id = rev.restaurant_id
 SET
-    r.rating = rev.avg_rating;
+    r.rating = rev.avg_rating
+WHERE rev.avg_rating IS NOT NULL;

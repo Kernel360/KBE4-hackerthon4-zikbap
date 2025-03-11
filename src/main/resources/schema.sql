@@ -10,7 +10,7 @@ DROP TABLE IF EXISTS restaurants_img;
 DROP TABLE IF EXISTS users;
 
 CREATE TABLE `users` (
-    `user_id` BIGINT NOT NULL AUTO_INCREMENT,
+    `user_id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `email` VARCHAR(320) NOT NULL UNIQUE KEY,
     `password` VARCHAR(255) NOT NULL,
     `nickname` VARCHAR(8) NOT NULL UNIQUE KEY,
@@ -20,18 +20,16 @@ CREATE TABLE `users` (
     `created_at` DATETIME NOT NULL,
     `modified_at` DATETIME NULL,
     `deleted_at` DATETIME NULL,
-    `deleted` TINYINT(1) NOT NULL,
-    PRIMARY KEY (`user_id`)
+    `deleted` TINYINT(1) NOT NULL
 );
 
 CREATE TABLE `categories` (
-    `category_id` BIGINT NOT NULL,
-    `name` VARCHAR(10) NULL,
-    PRIMARY KEY (`category_id`)
+    `category_id` BIGINT NOT NULL PRIMARY KEY,
+    `name` VARCHAR(10) NULL
 );
 
 CREATE TABLE restaurants (
-    restaurant_id BIGINT NOT NULL AUTO_INCREMENT,
+    restaurant_id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     restaurant_name VARCHAR(32) NOT NULL,
     location_category VARCHAR(10) NOT NULL,
     location_detail VARCHAR(128) NOT NULL,
@@ -43,21 +41,19 @@ CREATE TABLE restaurants (
     deleted_at DATETIME NULL,
     deleted TINYINT(1) NOT NULL,
     category_id BIGINT NOT NULL,
-    PRIMARY KEY (restaurant_id),
 	FOREIGN KEY (category_id) REFERENCES categories (category_id)
 );
 
 CREATE TABLE `bookmarks` (
-	`bookmark_id`	BIGINT	NOT NULL AUTO_INCREMENT,
+	`bookmark_id`	BIGINT	NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	`user_id`	BIGINT	NOT NULL,
 	`restaurant_id`	BIGINT	NOT NULL,
-	PRIMARY KEY (`bookmark_id`),
 	FOREIGN KEY (`restaurant_id`) REFERENCES `restaurants` (`restaurant_id`),
 	FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`)
 );
 
 CREATE TABLE `reviews` (
-	`review_id`	BIGINT	NOT NULL AUTO_INCREMENT,
+	`review_id`	BIGINT	NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	`restaurant_id`	BIGINT	NOT NULL,
 	`user_id`	BIGINT	NOT NULL,
 	`content`	VARCHAR(200)	NOT NULL,
@@ -66,27 +62,24 @@ CREATE TABLE `reviews` (
 	`modified_at`	DATETIME	NULL,
 	`deleted_at`	DATETIME	NULL,
 	`deleted`	TINYINT(1)	NOT NULL,
-	PRIMARY KEY (`review_id`),
 	FOREIGN KEY (`restaurant_id`) REFERENCES `restaurants` (`restaurant_id`),
 	FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`)
 );
 
 CREATE TABLE `menus` (
-	`menu_id`	BIGINT	NOT NULL AUTO_INCREMENT,
+	`menu_id`	BIGINT	NOT NULL AUTO_INCREMENT PRIMARY KEY ,
 	`name`	VARCHAR(8)	NOT NULL,
 	`price`	INT	NOT NULL,
 	`description`	VARCHAR(32)	NULL,
 	`image_url`	VARCHAR(200)	NOT NULL,
 	`signature`	TINYINT(1)	NOT NULL,
 	`restaurant_id`	BIGINT	NOT NULL,
-	PRIMARY KEY (`menu_id`),
 	FOREIGN KEY (`restaurant_id`) REFERENCES `restaurants` (`restaurant_id`)
 );
 
 CREATE TABLE `restaurants_img` (
-	`restaurant_img_id`	BIGINT	NOT NULL AUTO_INCREMENT,
+	`restaurant_img_id`	BIGINT	NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	`img_url`	VARCHAR(200)	NOT NULL,
 	`restaurant_id`	BIGINT	NOT NULL,
-	PRIMARY KEY (`restaurant_img_id`),
 	FOREIGN KEY (`restaurant_id`) REFERENCES `restaurants` (`restaurant_id`)
 );

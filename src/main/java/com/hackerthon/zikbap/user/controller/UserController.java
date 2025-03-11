@@ -32,10 +32,10 @@ public class UserController {
     public ResponseEntity<?> login(@RequestBody UserRequest userRequest, HttpServletResponse response) {
         Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
         // 예시: 고정된 id와 password로 검증
-        if ("correctId".equals(userRequest.getId()) && "correctPassword".equals(userRequest.getPassword())) {
+        if ("correctId".equals(userRequest.getEmail()) && "correctPassword".equals(userRequest.getPassword())) {
             // 토큰 생성 (만료시간 1시간)
             String token = Jwts.builder()
-                    .setSubject(userRequest.getId())
+                    .setSubject(userRequest.getEmail())
                     .setIssuedAt(new Date())
                     .setExpiration(new Date(System.currentTimeMillis() + 3600 * 1000)) // 1시간 후 만료
                     .signWith(key, SignatureAlgorithm.HS256)

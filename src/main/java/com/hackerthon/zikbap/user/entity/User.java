@@ -20,7 +20,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id; // PK, AI, BIGINT
+    private Long userId; // PK, AI, BIGINT
 
     @Column(name = "email", nullable = false, length = 320, unique = true)
     private String email; // VARCHAR(320), NOT NULL, UK
@@ -37,8 +37,8 @@ public class User {
     private Gender gender;
 
     // 나이대 TINYINT
-    @Column(name = "age_range")
-    private Integer ageRange;
+    @Column(name = "age")
+    private Integer age;
 
     // 권한 Enum('admin','owner','user')
     @Enumerated(EnumType.STRING)
@@ -58,6 +58,6 @@ public class User {
     private LocalDateTime deletedAt;
 
     // 삭제 여부, TINYINT(1)
-    @Column(name = "is_deleted")
-    private Boolean isDeleted;
+    @Column(name = "deleted")
+    private Boolean deleted;
 }
