@@ -28,7 +28,7 @@ public class User {
     @Column(name = "password", nullable = false, length = 255)
     private String password; // VARCHAR(255), NOT NULL
 
-    @Column(name = "nickname", nullable = false, length = 5, unique = true)
+    @Column(name = "nickname", nullable = false, length = 8, unique = true)
     private String nickname; // VARCHAR(5), NOT NULL, UK
 
     // 성별 Enum('M','F')

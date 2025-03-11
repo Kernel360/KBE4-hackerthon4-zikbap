@@ -39,7 +39,7 @@ public class Menu {
   @Column(length = 32)
   private String description;
 
-  @Column(length = 128)
+  @Column(length = 200)
   private String imageUrl;
 
   @Column(nullable = false)
