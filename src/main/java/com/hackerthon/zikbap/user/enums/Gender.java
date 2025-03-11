@@ -1,5 +1,5 @@
 package com.hackerthon.zikbap.user.enums;
 
-public enum gender {
+public enum Gender {
     M,F
 }

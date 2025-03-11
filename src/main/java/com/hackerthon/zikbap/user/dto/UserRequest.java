@@ -1,4 +1,5 @@
 package com.hackerthon.zikbap.user.dto;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 @Getter
@@ -7,9 +8,7 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class userRequest {
+public class UserRequest {
     private String id;
     private String password;
-
-
 }

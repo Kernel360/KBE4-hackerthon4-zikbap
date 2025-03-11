@@ -7,6 +7,7 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class userResponse {
+public class UserResponse {
+
     private String token;
 }

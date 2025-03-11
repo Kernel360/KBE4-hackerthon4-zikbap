@@ -1,14 +1,17 @@
 package com.hackerthon.zikbap.user.controller;
 
 // userController.java
-import com.hackerthon.zikbap.user.dto.userRequest;
-import com.hackerthon.zikbap.user.dto.userResponse;
+import com.hackerthon.zikbap.user.dto.UserRequest;
+import com.hackerthon.zikbap.user.dto.UserResponse;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.Date;
+
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,16 +19,18 @@ import org.springframework.web.bind.annotation.*;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 
+@Slf4j
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/api")
-public class userController {
+public class UserController {
 
     // 실제 서비스에서는 안전하게 관리할 것
     private static final String SECRET_KEY = "your_secret_key";
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody userRequest userRequest, HttpServletResponse response) {
-        Key key = Keys.hmacShaKeyFor(SECRET_KEY.getBytes(StandardCharsets.UTF_8));
+    public ResponseEntity<?> login(@RequestBody UserRequest userRequest, HttpServletResponse response) {
+        Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
         // 예시: 고정된 id와 password로 검증
         if ("correctId".equals(userRequest.getId()) && "correctPassword".equals(userRequest.getPassword())) {
             // 토큰 생성 (만료시간 1시간)
@@ -43,7 +48,7 @@ public class userController {
             cookie.setMaxAge(3600);    // 1시간 동안 쿠키 유지
 
             response.addCookie(cookie);
-            return ResponseEntity.ok(new userResponse(token));
+            return ResponseEntity.ok(new UserResponse(token));
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
         }

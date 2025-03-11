@@ -1,5 +1,5 @@
 package com.hackerthon.zikbap.user.enums;
 
-public enum role {
+public enum Role {
     admin, owner, user
 }

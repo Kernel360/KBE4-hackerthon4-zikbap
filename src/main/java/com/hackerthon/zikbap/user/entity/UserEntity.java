@@ -2,13 +2,21 @@ package com.hackerthon.zikbap.user.entity;
 
 import java.time.LocalDateTime;
 
-import com.hackerthon.zikbap.user.enums.gender;
-import com.hackerthon.zikbap.user.enums.role;
+import com.hackerthon.zikbap.user.enums.Gender;
+import com.hackerthon.zikbap.user.enums.Role;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
+import lombok.*;
 
 
-public class userEntity {
+@Getter
+@Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
+@Builder
+@ToString
+@Table(name="users")
+@Entity
+public class UserEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,7 +34,7 @@ public class userEntity {
     // 성별 Enum('M','F')
     @Enumerated(EnumType.STRING)
     @Column(name = "gender", length = 1)
-    private gender gender;
+    private Gender gender;
 
     // 나이대 TINYINT
     @Column(name = "age_range")
@@ -35,7 +43,7 @@ public class userEntity {
     // 권한 Enum('admin','owner','user')
     @Enumerated(EnumType.STRING)
     @Column(name = "role", length = 10)
-    private role role;
+    private Role role;
 
     // 생성일, DATETIME
     @Column(name = "created_at", updatable = false)
