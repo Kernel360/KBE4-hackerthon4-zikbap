@@ -36,4 +36,7 @@ public class Restaurant {
     @OneToMany(mappedBy = "restaurant", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<Menu> menus;
 
+    public void updateRating(float newRestaurantRating) {
+        this.rating = newRestaurantRating;
+    }
 }
