@@ -40,17 +40,12 @@ CREATE TABLE restaurants (
     modified_at DATETIME NULL,
     deleted_at DATETIME NULL,
     deleted TINYINT(1) NOT NULL,
-    category_id BIGINT NOT NULL,
-	FOREIGN KEY (category_id) REFERENCES categories (category_id)
-);
+    category_id BIGINT NOT NULL);
 
 CREATE TABLE `bookmarks` (
 	`bookmark_id`	BIGINT	NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	`user_id`	BIGINT	NOT NULL,
-	`restaurant_id`	BIGINT	NOT NULL,
-	FOREIGN KEY (`restaurant_id`) REFERENCES `restaurants` (`restaurant_id`),
-	FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`)
-);
+	`restaurant_id`	BIGINT	NOT NULL);
 
 CREATE TABLE `reviews` (
 	`review_id`	BIGINT	NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -61,10 +56,7 @@ CREATE TABLE `reviews` (
 	`created_at`	DATETIME	NOT NULL,
 	`modified_at`	DATETIME	NULL,
 	`deleted_at`	DATETIME	NULL,
-	`deleted`	TINYINT(1)	NOT NULL,
-	FOREIGN KEY (`restaurant_id`) REFERENCES `restaurants` (`restaurant_id`),
-	FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`)
-);
+	`deleted`	TINYINT(1)	NOT NULL);
 
 CREATE TABLE `menus` (
 	`menu_id`	BIGINT	NOT NULL AUTO_INCREMENT PRIMARY KEY ,
@@ -73,13 +65,9 @@ CREATE TABLE `menus` (
 	`description`	VARCHAR(32)	NULL,
 	`image_url`	VARCHAR(200)	NOT NULL,
 	`signature`	TINYINT(1)	NOT NULL,
-	`restaurant_id`	BIGINT	NOT NULL,
-	FOREIGN KEY (`restaurant_id`) REFERENCES `restaurants` (`restaurant_id`)
-);
+	`restaurant_id`	BIGINT	NOT NULL);
 
 CREATE TABLE `restaurants_img` (
 	`restaurant_img_id`	BIGINT	NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	`img_url`	VARCHAR(200)	NOT NULL,
-	`restaurant_id`	BIGINT	NOT NULL,
-	FOREIGN KEY (`restaurant_id`) REFERENCES `restaurants` (`restaurant_id`)
-);
+	`restaurant_id`	BIGINT	NOT NULL);
