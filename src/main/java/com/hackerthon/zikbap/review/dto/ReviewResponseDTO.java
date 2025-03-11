@@ -22,6 +22,6 @@ public class ReviewResponseDTO {
         this.gender = review.getUser().getGender().toString();
         this.rating = review.getRating();
         this.content = review.getContent();
-        this.canEditOrDelete = review.getUser().getId().equals(userId) ? true : false;
+        this.canEditOrDelete = review.getUser().getUserId().equals(userId) ? true : false;
     }
 }

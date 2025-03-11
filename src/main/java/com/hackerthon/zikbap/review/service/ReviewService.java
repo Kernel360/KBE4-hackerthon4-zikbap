@@ -57,7 +57,7 @@ public class ReviewService {
     public BaseResponseDTO modifyReview(ReviewRequestDTO requestDTO, Long reviewId, Long userId) {
         Review foundedReview = reviewRepository.findById(reviewId).orElseThrow(() -> new RuntimeException("Review Not Found"));
 
-        if (!foundedReview.getUser().getId().equals(userId)) {
+        if (!foundedReview.getUser().getUserId().equals(userId)) {
             throw new RuntimeException("Access denied");
         }
 
@@ -72,7 +72,7 @@ public class ReviewService {
     @Transactional
     public BaseResponseDTO deleteReview(Long reviewId, Long userId) {
         Review foundedReview = reviewRepository.findById(reviewId).orElseThrow(() -> new RuntimeException("Review Not Found"));
-        if (!foundedReview.getUser().getId().equals(userId)) {
+        if (!foundedReview.getUser().getUserId().equals(userId)) {
             throw new RuntimeException("Access denied");
         }
         foundedReview.deleteReview(LocalDateTime.now());
