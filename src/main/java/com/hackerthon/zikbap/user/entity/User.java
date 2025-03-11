@@ -50,8 +50,8 @@ public class User {
     private LocalDateTime createdAt;
 
     // 수정일, DATETIME
-    @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
+    @Column(name = "modified_at")
+    private LocalDateTime modifiedAt;
 
     // 삭제일, DATETIME
     @Column(name = "deleted_at")
