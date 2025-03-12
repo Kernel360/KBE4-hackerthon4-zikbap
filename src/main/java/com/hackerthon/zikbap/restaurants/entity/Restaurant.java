@@ -1,8 +1,6 @@
 package com.hackerthon.zikbap.restaurants.entity;
 
-import com.hackerthon.zikbap.menu.dto.MenuResponse;
 import com.hackerthon.zikbap.menu.entity.Menu;
-import com.hackerthon.zikbap.restaurants.dto.RestaurantBriefResponse;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -31,7 +29,7 @@ public class Restaurant {
     private String locationDetail;
     private float rating;
     private String phoneNumber;
-    private String email;
+    private String categoryId;
 
     @OneToMany(mappedBy = "restaurant", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<Menu> menus;

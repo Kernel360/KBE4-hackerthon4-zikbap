@@ -20,6 +20,7 @@ public class RestaurantResponse {
   private String locationDetail;
   private float rating;
   private String phoneNumber;
+  private String categoryId;
   private List<MenuResponse> menus;
 
   public RestaurantResponse(Restaurant restaurant) {
@@ -30,6 +31,7 @@ public class RestaurantResponse {
     this.rating = restaurant.getRating();
     this.phoneNumber = restaurant.getPhoneNumber();
     this.menus = restaurant.getMenus().stream().map(MenuResponse::new).collect(Collectors.toList());
+    this.categoryId = restaurant.getCategoryId();
   }
 
   }
