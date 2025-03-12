@@ -1,5 +1,4 @@
 package com.hackerthon.zikbap.user.dto;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 
 @Getter
@@ -8,7 +7,6 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserResponse {
 
     private String token;

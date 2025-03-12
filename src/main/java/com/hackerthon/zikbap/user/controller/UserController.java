@@ -45,7 +45,6 @@ public class UserController {
         cookie.setPath("/");       // 쿠키를 모든 경로에서 사용 가능하게 설정
         cookie.setMaxAge(3600);    // 1시간 동안 쿠키 유지
         response.addCookie(cookie);
-        result.setToken(null);
         return ResponseEntity.ok(result);
     }
 }
