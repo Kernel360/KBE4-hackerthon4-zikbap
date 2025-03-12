@@ -30,21 +30,21 @@ public class ReviewService {
     private final RestaurantRepository restaurantRepository;
     private final UserRepository userRepository;
 
-    public ReviewListResponseDTO getReviews(Long restaurantId, PageRequestDTO pageRequestDTO, Long userId) {
+    public ReviewListResponseDTO getReviews(Long restaurantId, PageRequestDTO pageRequestDTO, String userEmail) {
         Page<Review> reviewPage = reviewRepository.findByRestaurantIdAndDeletedFalse(restaurantId, pageRequestDTO.toPageable());
 
         List<ReviewResponseDTO> reviews = reviewPage.getContent()
                 .stream()
-                .map((review) -> new ReviewResponseDTO(review, userId))
+                .map((review) -> new ReviewResponseDTO(review, userEmail))
                 .collect(Collectors.toList());
         return new ReviewListResponseDTO(reviews, reviewPage.hasNext());
     }
 
     @Transactional
-    public BaseResponseDTO createReview(ReviewRequestDTO requestDTO, Long restaurantId, Long userId) {
+    public BaseResponseDTO createReview(ReviewRequestDTO requestDTO, Long restaurantId, String userEmail) {
         Restaurant foundedRestaurant = restaurantRepository.findById(restaurantId)
                 .orElseThrow(() -> new RuntimeException("Restaurant Not Found"));
-        User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User Not Found"));
+        User user = userRepository.findByEmail(userEmail).orElseThrow(() -> new RuntimeException("User Not Found"));
 
         Review newReview = Review.createNewReview(requestDTO.getContent(), user, foundedRestaurant, requestDTO.getRating(), LocalDateTime.now());
         reviewRepository.save(newReview);
@@ -54,10 +54,10 @@ public class ReviewService {
     }
 
     @Transactional
-    public BaseResponseDTO modifyReview(ReviewRequestDTO requestDTO, Long reviewId, Long userId) {
+    public BaseResponseDTO modifyReview(ReviewRequestDTO requestDTO, Long reviewId, String userEmail) {
         Review foundedReview = reviewRepository.findById(reviewId).orElseThrow(() -> new RuntimeException("Review Not Found"));
 
-        if (!foundedReview.getUser().getUserId().equals(userId)) {
+        if (!foundedReview.getUser().getEmail().equals(userEmail)) {
             throw new RuntimeException("Access denied");
         }
 
@@ -70,9 +70,9 @@ public class ReviewService {
     }
 
     @Transactional
-    public BaseResponseDTO deleteReview(Long reviewId, Long userId) {
+    public BaseResponseDTO deleteReview(Long reviewId, String userEmail) {
         Review foundedReview = reviewRepository.findById(reviewId).orElseThrow(() -> new RuntimeException("Review Not Found"));
-        if (!foundedReview.getUser().getUserId().equals(userId)) {
+        if (!foundedReview.getUser().getEmail().equals(userEmail)) {
             throw new RuntimeException("Access denied");
         }
         foundedReview.deleteReview(LocalDateTime.now());

@@ -15,13 +15,13 @@ public class ReviewResponseDTO {
     private String content;
     private boolean canEditOrDelete;
 
-    public ReviewResponseDTO(Review review, Long userId) {
+    public ReviewResponseDTO(Review review, String userEmail) {
         this.reviewId = review.getReviewId();
         this.nickname = review.getUser().getNickname();
         this.createdAt = review.getCreatedAt();
         this.gender = review.getUser().getGender().toString();
         this.rating = review.getRating();
         this.content = review.getContent();
-        this.canEditOrDelete = review.getUser().getUserId().equals(userId) ? true : false;
+        this.canEditOrDelete = review.getUser().getEmail().equals(userEmail);
     }
 }
