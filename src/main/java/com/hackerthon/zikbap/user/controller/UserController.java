@@ -2,6 +2,7 @@ package com.hackerthon.zikbap.user.controller;
 
 // userController.java
 import com.hackerthon.zikbap.user.dto.SignUpRequest;
+import com.hackerthon.zikbap.user.dto.SignUpResult;
 import com.hackerthon.zikbap.user.dto.UserRequest;
 import com.hackerthon.zikbap.user.dto.UserResponse;
 import com.hackerthon.zikbap.user.service.UserService;
@@ -29,9 +30,9 @@ public class UserController {
         if (userService.findByEmail(request.getEmail()).isPresent()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
-        userService.signUp(request);
+        SignUpResult signUpResult=userService.signUp(request);
         log.info("post요청");
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+        return ResponseEntity.status(HttpStatus.CREATED).body(signUpResult);
     }
 
     @PostMapping("/login")

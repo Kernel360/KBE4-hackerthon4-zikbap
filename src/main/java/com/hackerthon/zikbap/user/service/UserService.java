@@ -2,6 +2,7 @@ package com.hackerthon.zikbap.user.service;
 
 import com.hackerthon.zikbap.global.filter.JwtUtil;
 import com.hackerthon.zikbap.user.dto.SignUpRequest;
+import com.hackerthon.zikbap.user.dto.SignUpResult;
 import com.hackerthon.zikbap.user.dto.UserRequest;
 import com.hackerthon.zikbap.user.entity.User;
 import com.hackerthon.zikbap.user.enums.Role;
@@ -21,7 +22,7 @@ public class UserService {
     private final UserRepository userRepository;
 
     @Transactional
-    public void signUp(SignUpRequest request) {
+    public SignUpResult signUp(SignUpRequest request) {
         User newUser = User.builder()
                 .email(request.getEmail())
                 .password(request.getPassword())
@@ -35,6 +36,10 @@ public class UserService {
                 .deleted(false)
                 .build();
         userRepository.save(newUser);
+        return SignUpResult.builder()
+                .userId(newUser.getUserId())
+                .nickname(newUser.getNickname())
+                .build();
     }
 
     //TODO: 예외처리 및 예외 메시지 분리
