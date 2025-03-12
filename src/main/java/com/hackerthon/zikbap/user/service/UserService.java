@@ -4,6 +4,7 @@ import com.hackerthon.zikbap.global.filter.JwtUtil;
 import com.hackerthon.zikbap.user.dto.SignUpRequest;
 import com.hackerthon.zikbap.user.dto.SignUpResult;
 import com.hackerthon.zikbap.user.dto.UserRequest;
+import com.hackerthon.zikbap.user.dto.UserResponse;
 import com.hackerthon.zikbap.user.entity.User;
 import com.hackerthon.zikbap.user.enums.Role;
 import com.hackerthon.zikbap.user.repository.UserRepository;
@@ -44,7 +45,7 @@ public class UserService {
 
     //TODO: 예외처리 및 예외 메시지 분리
     @Transactional
-    public String logIn(UserRequest request) {
+    public UserResponse logIn(UserRequest request) {
         User user = userRepository.findByEmail(request.getEmail())
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 사용자입니다."));
 
@@ -53,7 +54,7 @@ public class UserService {
             throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
         }
         String accessToken  = jwtUtil.generateToken(request.getEmail());
-        return accessToken;
+        return new UserResponse(accessToken, user.getUserId(), user.getEmail(), user.getNickname());
     }
 
     public Optional<User> findByEmail(String email) {

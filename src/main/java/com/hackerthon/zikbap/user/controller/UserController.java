@@ -39,13 +39,14 @@ public class UserController {
     public ResponseEntity<?> logIn(@RequestBody UserRequest request, HttpServletResponse response) {
 
 
-        String token = userService.logIn(request);
-        Cookie cookie = new Cookie("jwt", token);
+        UserResponse result = userService.logIn(request);
+        Cookie cookie = new Cookie("jwt", result.getToken());
         cookie.setHttpOnly(true);  // 클라이언트 측의 스크립트에서 쿠키에 접근할 수 없도록 설정
         cookie.setPath("/");       // 쿠키를 모든 경로에서 사용 가능하게 설정
         cookie.setMaxAge(3600);    // 1시간 동안 쿠키 유지
         response.addCookie(cookie);
-        return ResponseEntity.ok(new UserResponse(token));
+        result.setToken(null);
+        return ResponseEntity.ok(result);
     }
 }
 
