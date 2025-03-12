@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RequiredArgsConstructor
+@CrossOrigin(originPatterns = "*", maxAge = 3600, methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE},
+allowedHeaders = "*", allowCredentials = "true")
 @RestController
 public class ReviewController {
 
