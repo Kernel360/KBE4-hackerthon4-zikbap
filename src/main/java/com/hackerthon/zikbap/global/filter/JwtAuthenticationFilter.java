@@ -37,7 +37,8 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
         }
 
         // JWT 쿠키 가져오기
-        String token = getJwtFromCookies(httpRequest);
+        String token = getJwtFromHeaders(httpRequest);
+        log.info("token: {}", token);
         if (token == null || jwtUtil.validateToken(token) == null) {
             httpResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED, "유효하지 않은 토큰입니다.");
             return;
@@ -58,6 +59,16 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
                     return cookie.getValue();
                 }
             }
+        }
+        return null;
+    }
+
+    private String getJwtFromHeaders(HttpServletRequest request) {
+        String authorization = request.getHeader("Authorization");
+        log.info("Authorization: {}", authorization);
+        if (authorization != null && authorization.startsWith("jwt=")) {
+            authorization = authorization.substring("jwt=".length());
+            return authorization;
         }
         return null;
     }
