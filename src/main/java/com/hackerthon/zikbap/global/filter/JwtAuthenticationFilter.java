@@ -30,8 +30,8 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
         String requestUri = httpRequest.getRequestURI();
 
         // 로그인 및 회원가입 요청은 필터를 거치지 않도록 예외 처리
-        if (!requestUri.startsWith("/api/login") || requestUri.startsWith("/api/signup")) {
-            log.info("로그인/회원가입");
+        if (true || requestUri.startsWith("/api/login") || requestUri.startsWith("/api/signup")) {
+            log.info("Filter예외처리");
             chain.doFilter(request, response);
             return;
         }
@@ -42,7 +42,6 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
             httpResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED, "유효하지 않은 토큰입니다.");
             return;
         }
-        log.info("jwt검사 후");
         // 토큰에서 이메일(또는 사용자 정보) 가져오기
         Claims claims = jwtUtil.getClaims(token);
         String email = claims.getSubject();
