@@ -30,7 +30,7 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
         String requestUri = httpRequest.getRequestURI();
 
         // 로그인 및 회원가입 요청은 필터를 거치지 않도록 예외 처리
-        if (true || requestUri.startsWith("/api/login") || requestUri.startsWith("/api/signup")) {
+        if (requestUri.startsWith("/api/login") || requestUri.startsWith("/api/signup")) {
             log.info("Filter예외처리");
             chain.doFilter(request, response);
             return;
