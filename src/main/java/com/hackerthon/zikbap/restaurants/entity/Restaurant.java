@@ -1,8 +1,6 @@
 package com.hackerthon.zikbap.restaurants.entity;
 
-import com.hackerthon.zikbap.menu.dto.MenuResponse;
 import com.hackerthon.zikbap.menu.entity.Menu;
-import com.hackerthon.zikbap.restaurants.dto.RestaurantBriefResponse;
 import jakarta.persistence.*;
 
 import java.util.List;
